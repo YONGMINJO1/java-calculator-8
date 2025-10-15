@@ -1,5 +1,52 @@
 package calculator;
 
+import static org.assertj.core.api.Assertions.assertThat;
+
+import org.junit.jupiter.api.Test;
+
 public class StringAddCalculatorTest {
     // TDD 테스트
+    @Test
+    void 빈_문자열_입력시_0을_반환한다() {
+
+        String input = " ";
+
+        int result = StringAddCalculator.add(input);
+
+        assertThat(result).isEqualTo(0);
+
+    }
+
+    @Test
+    void null_문자열_입력시_0을_반환한다() {
+
+        String input = null;
+
+        int result = StringAddCalculator.add(input);
+
+        assertThat(result).isEqualTo(0);
+
+    }
+
+    @Test
+    void 쉼표로_구분된_숫자를_더한다() {
+
+        String input = "1,2,3";
+
+        int result = StringAddCalculator.add(input);
+
+        assertThat(result).isEqualTo(6);
+
+    }
+
+    @Test
+    void 콜론으로_구분된_숫자를_더한다() {
+
+        String input = "1,2:3";
+
+        int result = StringAddCalculator.add(input);
+
+        assertThat(result).isEqualTo(6);
+    }
+
 }
