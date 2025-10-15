@@ -9,7 +9,7 @@ public class StringAddCalculatorTest {
     @Test
     void 빈_문자열_입력시_0을_반환한다() {
 
-        String input = " ";
+        String input = "";
 
         int result = StringAddCalculator.add(input);
 
