@@ -48,5 +48,15 @@ public class StringAddCalculatorTest {
 
         assertThat(result).isEqualTo(6);
     }
+    
+    @Test
+    void 커스텀_구분자로_숫자를_더한다() {
+
+        String input = "//;\n1;2;3";
+
+        int result = StringAddCalculator.add(input);
+
+        assertThat(result).isEqualTo(6);
+    }
 
 }

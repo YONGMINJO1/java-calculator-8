@@ -1,5 +1,7 @@
 package calculator;
 
+import java.util.regex.Pattern;
+
 public class StringAddCalculator {
 
     public static int add(String input) {
@@ -8,8 +10,16 @@ public class StringAddCalculator {
             return 0;
         }
 
+        String delimiter = ",|:"; // 기본 구분자
+
+        if (input.startsWith("//")) {
+            int delimiterEndIndex = input.indexOf("\n");
+            delimiter = delimiter + "|" + Pattern.quote(input.substring(2, delimiterEndIndex));
+            input = input.substring(delimiterEndIndex + 1);
+        }
+
         // 쉼표 또는 콜론을 기준으로 구분
-        String[] numbers = input.split("[,:]");
+        String[] numbers = input.split(delimiter);
 
         // 숫자 더하기
         int sum = 0;
