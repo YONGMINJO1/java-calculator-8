@@ -69,4 +69,26 @@ public class StringAddCalculatorTest {
                 ).isInstanceOf(IllegalArgumentException.class)
                 .hasMessageContaining("음수는 허용되지 않습니다:");
     }
+
+    @Test
+    void 숫자가_아닌_값이_포함되면_예외를_던진다() {
+
+        String input = "1,a,3";
+
+        org.assertj.core.api.Assertions.assertThatThrownBy(() ->
+                        StringAddCalculator.add(input)
+                ).isInstanceOf(IllegalArgumentException.class)
+                .hasMessageContaining("잘못된 입력값이 포함되어 있습니다.");
+    }
+
+    @Test
+    void 구분자_사이에_빈값이_있으면_예외를_던진다() {
+
+        String input = "1,,2";
+
+        org.assertj.core.api.Assertions.assertThatThrownBy(() ->
+                        StringAddCalculator.add(input)
+                ).isInstanceOf(IllegalArgumentException.class)
+                .hasMessageContaining("잘못된 입력값이 포함되어 있습니다.");
+    }
 }
