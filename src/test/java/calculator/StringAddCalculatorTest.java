@@ -1,13 +1,14 @@
 package calculator;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
 import org.junit.jupiter.api.Test;
 
 public class StringAddCalculatorTest {
     // TDD 테스트
     @Test
-    void 빈_문자열_입력시_0을_반환한다() {
+    void 빈_문자열_입력시_0을_반환() {
 
         String input = "";
 
@@ -18,7 +19,7 @@ public class StringAddCalculatorTest {
     }
 
     @Test
-    void null_문자열_입력시_0을_반환한다() {
+    void null_문자열_입력시_0을_반환() {
 
         String input = null;
 
@@ -29,7 +30,7 @@ public class StringAddCalculatorTest {
     }
 
     @Test
-    void 쉼표로_구분된_숫자를_더한다() {
+    void 쉼표로_구분된_숫자() {
 
         String input = "1,2,3";
 
@@ -40,7 +41,7 @@ public class StringAddCalculatorTest {
     }
 
     @Test
-    void 콜론으로_구분된_숫자를_더한다() {
+    void 콜론으로_구분된_숫자() {
 
         String input = "1,2:3";
 
@@ -50,7 +51,7 @@ public class StringAddCalculatorTest {
     }
 
     @Test
-    void 커스텀_구분자로_숫자를_더한다() {
+    void 커스텀_구분자로_숫자() {
 
         String input = "//;\n1;2;3";
 
@@ -60,35 +61,35 @@ public class StringAddCalculatorTest {
     }
 
     @Test
-    void 음수가_포함된_입력값이_들어오면_예외를_던진다() {
+    void 음수가_포함된_입력값이_들어오면_예외() {
 
         String input = "1,-2,3";
 
-        org.assertj.core.api.Assertions.assertThatThrownBy(() ->
-                        StringAddCalculator.add(input)
-                ).isInstanceOf(IllegalArgumentException.class)
+        assertThatThrownBy(() ->
+                StringAddCalculator.add(input)
+        ).isInstanceOf(IllegalArgumentException.class)
                 .hasMessageContaining("음수는 허용되지 않습니다:");
     }
 
     @Test
-    void 숫자가_아닌_값이_포함되면_예외를_던진다() {
+    void 숫자가_아닌_값이_포함되면_예외() {
 
         String input = "1,a,3";
 
-        org.assertj.core.api.Assertions.assertThatThrownBy(() ->
-                        StringAddCalculator.add(input)
-                ).isInstanceOf(IllegalArgumentException.class)
+        assertThatThrownBy(() ->
+                StringAddCalculator.add(input)
+        ).isInstanceOf(IllegalArgumentException.class)
                 .hasMessageContaining("잘못된 입력값이 포함되어 있습니다.");
     }
 
     @Test
-    void 구분자_사이에_빈값이_있으면_예외를_던진다() {
+    void 구분자_사이에_빈값이_있으면_예외() {
 
         String input = "1,,2";
 
-        org.assertj.core.api.Assertions.assertThatThrownBy(() ->
-                        StringAddCalculator.add(input)
-                ).isInstanceOf(IllegalArgumentException.class)
-                .hasMessageContaining("잘못된 입력값이 포함되어 있습니다.");
+        assertThatThrownBy(() ->
+                StringAddCalculator.add(input)
+        ).isInstanceOf(IllegalArgumentException.class)
+                .hasMessageContaining("입력값에 공백이 포함되어 있습니다.");
     }
 }
