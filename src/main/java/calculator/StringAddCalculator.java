@@ -10,10 +10,15 @@ public class StringAddCalculator {
             return 0;
         }
 
+        input = input.replace("\\n", "\n");
+
         String delimiter = ",|:"; // 기본 구분자
 
         if (input.startsWith("//")) {
             int delimiterEndIndex = input.indexOf("\n");
+            if (delimiterEndIndex == -1) {
+                throw new IllegalArgumentException("커스텀 구분자 지정이 잘못되었습니다.");
+            }
             delimiter = delimiter + "|" + Pattern.quote(input.substring(2, delimiterEndIndex));
             input = input.substring(delimiterEndIndex + 1);
         }
@@ -26,7 +31,7 @@ public class StringAddCalculator {
         for (String number : numbers) {
 
             if (number.isEmpty()) {
-                throw new IllegalArgumentException("잘못된 입력값이 포함되어 있습니다.");
+                throw new IllegalArgumentException("입력값에 공백이 포함되어 있습니다.");
             }
             try {
                 int value = Integer.parseInt(number);

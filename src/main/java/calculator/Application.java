@@ -6,13 +6,13 @@ public class Application {
     public static void main(String[] args) {
         // TODO: 프로그램 구현 (문자열 덧셈 계산기 시작점)
         System.out.println("덧셈할 문자열을 입력해 주세요.");
-
+        String input = Console.readLine();
         try {
-            String input = Console.readLine();
             int result = StringAddCalculator.add(input);
-            System.out.println("결과: " + result);
+            System.out.println("결과 : " + result);
         } catch (IllegalArgumentException e) {
             System.out.println(e.getMessage());
+            throw e;
         }
     }
 }
