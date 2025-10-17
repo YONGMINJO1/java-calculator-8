@@ -6,7 +6,7 @@ public class StringAddCalculator {
 
     public static int add(String input) {
         // 입력값이 null 이거나 빈 문자열이면 0 반환
-        if (input == null || input.isEmpty()) {
+        if (isNullOrEmpty(input)) {
             return 0;
         }
 
@@ -44,5 +44,9 @@ public class StringAddCalculator {
             }
         }
         return sum;
+    }
+
+    private static boolean isNullOrEmpty(String input) {
+        return input == null || input.isEmpty();
     }
 }
