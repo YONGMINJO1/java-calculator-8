@@ -12,14 +12,10 @@ public class StringAddCalculator {
 
         input = input.replace("\\n", "\n");
 
-        String delimiter = ",|:"; // 기본 구분자
+        String delimiter = extractDelimiter(input);
 
         if (input.startsWith("//")) {
             int delimiterEndIndex = input.indexOf("\n");
-            if (delimiterEndIndex == -1) {
-                throw new IllegalArgumentException("커스텀 구분자 지정이 잘못되었습니다.");
-            }
-            delimiter = delimiter + "|" + Pattern.quote(input.substring(2, delimiterEndIndex));
             input = input.substring(delimiterEndIndex + 1);
         }
 
@@ -48,5 +44,20 @@ public class StringAddCalculator {
 
     private static boolean isNullOrEmpty(String input) {
         return input == null || input.isEmpty();
+    }
+
+    private static String extractDelimiter(String input) {
+        String delimiter = ",|:";
+
+        if (input.startsWith("//")) {
+            int delimiterEndIndex = input.indexOf("\n");
+            if (delimiterEndIndex == -1) {
+                throw new IllegalArgumentException("커스컴 구분자 지정이 잘못되었습니다.");
+            }
+
+            String customDelimiter = input.substring(2, delimiterEndIndex);
+            delimiter += "|" + Pattern.quote(customDelimiter);
+        }
+        return delimiter;
     }
 }
