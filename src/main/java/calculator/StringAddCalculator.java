@@ -25,19 +25,7 @@ public class StringAddCalculator {
         // 숫자 더하기
         int sum = 0;
         for (String number : numbers) {
-
-            if (number.isEmpty()) {
-                throw new IllegalArgumentException("입력값에 공백이 포함되어 있습니다.");
-            }
-            try {
-                int value = Integer.parseInt(number);
-                if (value < 0) {
-                    throw new IllegalArgumentException("음수는 허용되지 않습니다: " + value);
-                }
-                sum += value;
-            } catch (NumberFormatException e) {
-                throw new IllegalArgumentException("잘못된 입력값이 포함되어 있습니다.");
-            }
+            sum += parseAndValidateNumber(number);
         }
         return sum;
     }
@@ -59,5 +47,21 @@ public class StringAddCalculator {
             delimiter += "|" + Pattern.quote(customDelimiter);
         }
         return delimiter;
+    }
+
+    private static int parseAndValidateNumber(String number) {
+        if (number.isEmpty()) {
+            throw new IllegalArgumentException("입력값에 공백이 포함되어 있습니다.");
+        }
+        int value;
+        try {
+            value = Integer.parseInt(number);
+        } catch (NumberFormatException e) {
+            throw new IllegalArgumentException("잘못된 입력값이 포함되어 있습니다.");
+        }
+        if (value < 0) {
+            throw new IllegalArgumentException("음수는 허용되지 않습니다: " + value);
+        }
+        return value;
     }
 }
